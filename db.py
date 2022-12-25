@@ -29,6 +29,20 @@ class db_manager:
         self.end()  
         return word_found
     
+    def deleteAllPresents(self):
+        self.start()
+        self.cursor.execute("DELETE FROM Presents",)
+        self.conn.commit()
+        self.end()  
+
+    
+    def repinAllWords(self):
+        self.start()
+        self.cursor.execute("UPDATE FullWordList SET Used=0",)
+        self.conn.commit()
+        self.end()
+
+
     def getRandomWord(self):
         self.start()
         self.cursor.execute("SELECT Word, Num FROM FullWordList WHERE Used=0  ORDER BY RANDOM() LIMIT 1")

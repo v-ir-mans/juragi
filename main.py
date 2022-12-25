@@ -8,7 +8,7 @@ from db import db_manager
 from flask import jsonify
 from order import getOrder
 
-DB=db_manager(r"data\main.db")
+DB=db_manager(r"data\main.sqlite")
 
 
 # Flask constructor takes the name of
@@ -17,6 +17,13 @@ app = Flask(__name__)
 @app.route('/')
 def main():
     return render_template('main.html')
+
+@app.route('/clear1234567890clear')
+def clear():
+    DB.deleteAllPresents()
+    DB.repinAllWords()
+
+    return "Kā gribi!"
 
 @app.route('/order')
 def order():
