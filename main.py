@@ -6,8 +6,9 @@ import json
 from datetime import datetime
 from db import db_manager
 from flask import jsonify
+from order import getOrder
 
-DB=db_manager(r"C:\Users\arman\Documents\juragi\data\main.db")
+DB=db_manager(r"data\main.db")
 
 
 # Flask constructor takes the name of
@@ -16,6 +17,17 @@ app = Flask(__name__)
 @app.route('/')
 def main():
     return render_template('main.html')
+
+@app.route('/order')
+def order():
+    Presents=DB.getAllPresents()
+    Obol, Opres, Ocycles=getOrder(Presents)
+
+    if Obol:
+        presents_and_owners=[(op.word, op.parent_num) for op in Opres ]
+    else:
+        presents_and_owners="Nava"
+    return {"Status":Obol, "Cycles":Ocycles, "Order":presents_and_owners}
 
 @app.route('/get_presents')
 def getP():
@@ -51,6 +63,8 @@ def removePresent():
     if num in allowed_num:
         DB.removePresentByNum(num)
     return ":)"
+
+
 
 
 

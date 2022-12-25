@@ -2,6 +2,7 @@
 import time
 import uuid
 import sqlite3
+import random
 
 class db_manager:
     def __init__(self, path) -> None:
@@ -18,6 +19,13 @@ class db_manager:
         self.cursor.execute("SELECT Word, Num FROM Presents WHERE ID=? ORDER BY Time", (ID,))
         word_found=self.cursor.fetchall()
         word_dict=[dict(zip(["Word","Num"],w)) for w in word_found]
+        self.end()  
+        return word_found
+    
+    def getAllPresents(self):
+        self.start()
+        self.cursor.execute("SELECT Word, Num, ID FROM Presents ORDER BY RANDOM()",)
+        word_found=self.cursor.fetchall()
         self.end()  
         return word_found
     
@@ -66,6 +74,7 @@ class db_manager:
         for r in regions:
             region_list.append(Counter_regions[r])
         return region_list
+    
     def searchTrack(self,Name:str):
         self.start()
         self.cursor.execute("SELECT * FROM Tracks WHERE Name=?", (Name,))
@@ -88,5 +97,7 @@ class db_manager:
 
 
 if __name__=="__main__":
-    wordDB=db_manager(r"C:\Users\arman\Documents\juragi\data\main.db")
-    print(wordDB.removePresentByNum(594))
+    DB=db_manager(r"C:\Users\arman\Documents\juragi\data\main.db")
+    full_presents=DB.getAllPresents()
+    for fp in full_presents:
+        print(fp)
