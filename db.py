@@ -97,7 +97,4 @@ class db_manager:
 
 
 if __name__=="__main__":
-    DB=db_manager(r"C:\Users\arman\Documents\juragi\data\main.db")
-    full_presents=DB.getAllPresents()
-    for fp in full_presents:
-        print(fp)
+    pass
