@@ -1,0 +1,16 @@
+@media (min-width: 300px) {
+  #Apraksts {
+    height: 300px;
+    padding-top: 20px;
+    overflow-y: scroll;
+    background: rgba(255,255,255,0.69);
+    border-radius: 44px;
+  }
+}
+
+@media (min-width: 992px) {
+  #Apraksts {
+    overflow-y: visible;
+  }
+}
+
